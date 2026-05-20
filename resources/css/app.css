@@ -20,3 +20,8 @@
   z-index: 1000; /* Ensures it stays on top of page content */
 }
 
+.error-style {
+    color: red;
+    font-weight: bold;
+}
+

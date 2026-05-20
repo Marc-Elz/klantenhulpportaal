@@ -1,4 +1,6 @@
 import axios from "axios";
+import { destroyErrors, destroyMessage } from "../error";
+import { setErrorBag, setMessage } from "../error";
 import { storeType } from "../store/storeTypes";
 
 const http = axios.create({
@@ -17,3 +19,27 @@ export const postRequest = (endpoint: string, data: storeType) =>
 export const putRequest = (endpoint: string, data: storeType) =>
     http.put(endpoint, data);
 export const deleteRequest = (endpoint: string) => http.delete(endpoint);
+
+http.interceptors.request.use(
+    (config) => {
+        destroyErrors(); // Wis oude fouten voordat een nieuw verzoek wordt uitgevoerd
+        destroyMessage(); // Wis oude "messages" voordat een nieuw verzoek wordt uitgevoerd
+        return config;
+    },
+    (error) => Promise.reject(error),
+);
+
+http.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 422) {
+            setErrorBag(error.response.data.errors);
+            setMessage(error.response.data.message);
+        }
+        if (error.response && error.response.status === 403) {
+            setErrorBag(error.response.data.errors); // will be undefined because its not a form error, not the cleanest way
+            setMessage(error.response.data.email); //
+        }
+        return Promise.reject(error);
+    },
+);
