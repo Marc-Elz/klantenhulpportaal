@@ -22,3 +22,8 @@ export interface ticketType extends storeType {
 export interface categoryType extends storeType {
     name: string;
 }
+
+export interface authType extends storeType {
+    email: string;
+    password: string;
+}
