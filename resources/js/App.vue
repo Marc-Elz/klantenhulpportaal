@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import Login from "./domains/auth/pages/Login.vue";
+import { logout, fetchUser } from "./domains/auth/store";
 </script>
 
 <template>
+    <button @click="logout()">Log out</button>
+    <button @click="fetchUser()">Fetch current user</button>
     <nav>
         <router-link :to="{ name: 'auth.login' }"> Log in </router-link>
     </nav>
