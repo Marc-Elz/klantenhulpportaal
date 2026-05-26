@@ -11,12 +11,13 @@ export interface userType extends storeType {
 export interface ticketType extends storeType {
     title: string;
     description: string;
-    submitter: number;
-    assigned_to: number;
-    category_id: number;
+    submitter_id: number;
+    asignee_id: number;
+    category_ids: [number];
     status: Enumerator;
     priority: Enumerator;
     created_at: Date;
+    updated_at: Date;
 }
 
 export interface categoryType extends storeType {

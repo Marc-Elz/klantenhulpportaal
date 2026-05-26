@@ -25,3 +25,15 @@
     font-weight: bold;
 }
 
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.minimal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: sans-serif;
+  font-size: 0.9rem;
+  text-align: left;
+}
