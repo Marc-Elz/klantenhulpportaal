@@ -1,10 +1,17 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router";
 import Login from "./domains/auth/pages/Login.vue";
 import { logout, fetchUser } from "./domains/auth/store";
+const router = useRouter();
+
+function logUserOut() {
+    logout();
+    router.push({ name: "auth.login" });
+}
 </script>
 
 <template>
-    <button @click="logout()">Log out</button>
+    <button @click="logUserOut()">Log out</button>
     <button @click="fetchUser()">Fetch current user</button>
     <nav>
         <router-link :to="{ name: 'auth.login' }"> Log in </router-link>

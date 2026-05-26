@@ -24,9 +24,6 @@
                     <td>{{ ticket.created_at }}</td>
                     <td>{{ ticket.updated_at }}</td>
                     <td>{{ ticket.asignee_id }}</td>
-                    {{
-                        ticket.value
-                    }}
                 </tr>
             </tbody>
         </table>
