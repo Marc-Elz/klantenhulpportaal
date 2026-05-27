@@ -48,7 +48,6 @@ const initializeUserFromStorage = () => {
     const storedUser = getStoredUser();
     if (storedUser) {
         user.value = storedUser;
-        console.log("loaded from storage:", storedUser);
     }
 };
 

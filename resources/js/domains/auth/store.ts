@@ -4,8 +4,6 @@ import { getRequest, postRequest } from "../../services/http";
 import { authType } from "../../services/store/storeTypes";
 
 export const setStoredUser = (userData: any) => {
-    console.log(userData);
-    console.log("stringified:", JSON.stringify(userData));
     localStorage.setItem("currentUser", JSON.stringify(userData));
 };
 
@@ -78,8 +76,6 @@ export const logout = async (data: authType) => {
 
 export const getCurrentUser = () => {
     const response = myAuthStore.getters.getCurrentUser();
-    console.log("outer");
-    console.log(response.value);
     return response.value;
 };
 
