@@ -19,7 +19,9 @@
                     <td>{{ ticket.id }}</td>
                     <td>{{ ticket.title }}</td>
                     <td>{{ ticket.category_ids }}</td>
-                    <td>{{ ticket.status }}</td>
+                    <td :style="{ color: getColor(ticket.status) }">
+                        {{ ticket.status }}
+                    </td>
                     <td>{{ ticket.submitter_id }}</td>
                     <td>{{ ticket.created_at }}</td>
                     <td>{{ ticket.updated_at }}</td>
@@ -38,4 +40,17 @@ import ErrorMessage from "../../../components/ErrorMessage.vue";
 import { getAllTickets, fetchTickets } from "../store";
 
 fetchTickets();
+
+const getColor = (status: string) => {
+    switch (status) {
+        case "resolved":
+            return "green";
+        case "closed":
+            return "grey";
+        case "open":
+            return "red";
+        case "in_progress":
+            return "blue";
+    }
+};
 </script>

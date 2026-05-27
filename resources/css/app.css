@@ -37,3 +37,13 @@
   font-size: 0.9rem;
   text-align: left;
 }
+
+td:nth-child(even), th:nth-child(even) {
+  background-color: #D6EEEE;
+}
+
+
+#green  {background-color: green}
+#blue { background-color: blue;} 
+#red    {background-color: red}
+#grey  {background-color: Grey}
