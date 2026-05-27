@@ -17,3 +17,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 // });
 
 Route::get('/tickets', [TicketController::class, 'index'])->middleware('auth:sanctum');
+
+// admin routes
+// crud users, categories
+
+// admin/relevant user routes
+// crud tickets, tickets
