@@ -1,18 +1,32 @@
 <template>
-    <h1>Please sign in</h1>
-    <Form @submit="handleSubmit" />
+    <div class="container">
+        <h1>Please sign in</h1>
+        <Form @submit="handleSubmit" />
+    </div>
 </template>
 
 <script setup lang="ts">
 import Form from "../components/Form.vue";
 import { useRouter } from "vue-router";
 import { authType } from "../../../services/store/storeTypes";
-import { authenticate } from "../store";
+import { authenticate, getCurrentUser } from "../store";
+import { globalUser, fetchSetUser } from "../store";
 
 const router = useRouter();
 
 const handleSubmit = async (data: authType) => {
-    await authenticate(data);
-    router.push({ name: "tickets.overview" });
+    const response = await authenticate(data);
+    console.log("Auth response:");
+    console.log(response);
+    // maybe only if success?
+    if (response && response.status === 200) {
+        router.push({ name: "tickets.overview" });
+        await fetchSetUser();
+
+        const current = getCurrentUser();
+        if (current != null) {
+            globalUser.value = current;
+        }
+    }
 };
 </script>
