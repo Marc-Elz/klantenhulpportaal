@@ -9,7 +9,6 @@ export const setStoredUser = (userData: any) => {
 
 export const getStoredUser = () => {
     const userData = localStorage.getItem("currentUser");
-    console.log("userdata", userData);
     return userData ? JSON.parse(userData) : null;
 };
 
@@ -27,7 +26,6 @@ export const authStore = () => {
 
     const setters = {
         setCurrentUser: (item: [authType]) => {
-            console.log("item:", Object.freeze(item));
             state.value = Object.freeze(item);
             setStoredUser(item);
         },
@@ -48,9 +46,15 @@ export const authStore = () => {
             return response;
         },
         fetchSetUser: async () => {
-            const response = await getRequest("/user");
-            setters.setCurrentUser(response.data);
-            return response.data;
+            try {
+                const response = await getRequest("/user");
+                setters.setCurrentUser(response.data);
+                return response.data;
+            }
+            catch {
+                clearStoredUser();
+                return null;
+            }
         },
     };
 

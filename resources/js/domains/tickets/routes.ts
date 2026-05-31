@@ -1,5 +1,5 @@
 import Overview from "./pages/Overview.vue";
 
 export const ticketRoutes = [
-    { path: "/tickets", component: Overview, name: "tickets.overview" },
+    { path: "/tickets", component: Overview, name: "tickets.overview",  meta: { requiresAuth: true }},
 ];
