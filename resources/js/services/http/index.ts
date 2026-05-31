@@ -37,7 +37,6 @@ http.interceptors.response.use(
             setMessage(error.response.data.message);
         }
         if (error.response && error.response.status === 403) {
-            setErrorBag(error.response.data.errors); // will be undefined because its not a form error, not the cleanest way
             setMessage(error.response.data.email); //
         }
         return Promise.reject(error);
