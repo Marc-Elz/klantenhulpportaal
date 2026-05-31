@@ -9,8 +9,14 @@ use App\Http\Resources\TicketResource;
 
 class TicketController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return TicketResource::collection(Ticket::all());
+        $user = $request->user();
+
+        $tickets = $user->role === 'admin'
+            ? Ticket::all()
+            : Ticket::where('user_submitter_id', $user->id)->get();
+
+        return TicketResource::collection($tickets);
     }
 }

@@ -12,11 +12,9 @@ Route::get('/user', function (Request $request) {
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
-// Route::middleware('auth:api')->get('/auth-check', function (Request $request) {
-//     return response()->json(['authenticated' => auth()->check()]);
-// });
-
-Route::get('/tickets', [TicketController::class, 'index'])->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('/tickets', TicketController::class);
+});
 
 // admin routes
 // crud users, categories
