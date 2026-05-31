@@ -4,7 +4,7 @@ export interface storeType {
 
 export interface userType extends storeType {
     name: string;
-    role: Enumerator;
+    role: Role;
     created_at: Date;
 }
 
@@ -14,8 +14,8 @@ export interface ticketType extends storeType {
     submitter_id: number;
     asignee_id: number;
     category_ids: [number];
-    status: Enumerator;
-    priority: Enumerator;
+    status: Status;
+    priority: Priority;
     created_at: Date;
     updated_at: Date;
 }
@@ -28,3 +28,7 @@ export interface authType extends storeType {
     email: string;
     password: string;
 }
+
+export type Role = "admin" | "user";
+export type Status = "open" | "in_progress" | "resolved" | "closed";
+export type Priority = "low" | "medium" | "high";
