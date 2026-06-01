@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('description');
             // $table->enum('status', ['open', 'in_progress', 'resolved', 'closed']);
             // $table->enum('priority', ['low', 'medium', 'high']);
-            $table->string('status');
-            $table->string('priority');
+            $table->string('status')->default('open');;
+            $table->string('priority')->default('low');
             $table->foreignId('user_submitter_id');
-            $table->foreignId('user_asignee_id');
-            $table->foreignId('category_id');
+            $table->foreignId('user_asignee_id')->nullable();
+            $table->foreignId('category_ids')->nullable();
             $table->timestamps();
         });
     }

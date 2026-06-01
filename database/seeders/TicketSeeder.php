@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 use App\Models\Ticket;
 
@@ -12,6 +13,7 @@ class TicketSeeder extends Seeder
      */
     public function run(): void
     {
-        Ticket::factory()->count(10)->create();
+        $categories = Category::All();
+        Ticket::factory()->count(10)->hasAttached($categories)->create();
     }
 }
