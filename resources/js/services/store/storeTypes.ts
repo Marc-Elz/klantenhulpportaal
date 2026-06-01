@@ -11,9 +11,9 @@ export interface userType extends storeType {
 export interface ticketType extends storeType {
     title: string;
     description: string;
-    submitter_id: number;
+    user_submitter_id: number;
     asignee_id: number;
-    category_ids: [number];
+    category_ids: number[];
     status: Status;
     priority: Priority;
     created_at: Date;

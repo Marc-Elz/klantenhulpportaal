@@ -15,6 +15,11 @@ import ProfileBar from "./components/ProfileBar.vue";
                 </router-link>
             </li>
             <li>
+                <router-link :to="{ name: 'tickets.create' }">
+                    Ticket Create
+                </router-link>
+            </li>
+            <li>
                 <router-link :to="{ name: 'users.overview' }">
                     User overview
                 </router-link>
