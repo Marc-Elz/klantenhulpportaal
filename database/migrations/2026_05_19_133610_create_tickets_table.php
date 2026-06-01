@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('priority')->default('low');
             $table->foreignId('user_submitter_id');
             $table->foreignId('user_asignee_id')->nullable();
-            $table->foreignId('category_ids')->nullable();
             $table->timestamps();
         });
     }

@@ -20,7 +20,7 @@ class TicketResource extends JsonResource
             'description' => $this->description,
             'status' => $this->status,
             'priority' => $this->priority,
-            'category_ids' => $this->category_id, // TODO this should be a 1 to many and then this should be an array of categories
+            'category_ids' => CategoryRecource::collection($this->categories),
             'submitter_id' => $this->user_submitter_id,
             'asignee_id' => $this->user_asignee_id,
             'created_at' => $this->created_at,

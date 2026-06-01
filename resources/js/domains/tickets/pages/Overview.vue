@@ -19,6 +19,7 @@
                     <td>{{ ticket.id }}</td>
                     <td>{{ ticket.title }}</td>
                     <td>{{ ticket.category_ids }}</td>
+                    <!-- now gets a collection, should only show the names of categories-->
                     <td :style="{ color: getColor(ticket.status) }">
                         {{ ticket.status }}
                     </td>
