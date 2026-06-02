@@ -16,9 +16,7 @@ const router = useRouter();
 
 const handleSubmit = async (data: authType) => {
     const response = await authenticate(data);
-    console.log("Auth response:");
-    console.log(response);
-    // maybe only if success?
+
     if (response && response.status === 200) {
         router.push({ name: "tickets.overview" });
         await fetchSetUser();
