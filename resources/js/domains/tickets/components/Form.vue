@@ -44,13 +44,13 @@ import ErrorMessage from "../../../components/ErrorMessage.vue";
 import type { Priority } from "../../../services/store/storeTypes.ts";
 import { fetchCategories, getAllCategories } from "../../categories/store.ts";
 
-const props = defineProps({ review: Object });
+const props = defineProps({ ticket: Object });
 
 const emit = defineEmits(["submit"]);
 
 const priorities: Priority[] = ["low", "medium", "high"];
 
-const form = ref({ ...props.review });
+const form = ref({ ...props.ticket });
 
 const handleSubmit = () => emit("submit", form.value);
 
