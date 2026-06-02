@@ -12,6 +12,7 @@
                     <th>Aangemaakt op</th>
                     <th>Laatste update op</th>
                     <th>Toegewezen aan</th>
+                    <th>Edit ticket</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,13 +24,22 @@
                     <td :style="{ color: getColor(ticket.status) }">
                         {{ ticket.status }}
                     </td>
-                    <td>{{ ticket.submitter_id }}</td>
+                    <td>{{ getUserById(ticket.submitter_id).value.name }}</td>
                     <td>{{ ticket.created_at }}</td>
                     <td>{{ ticket.updated_at }}</td>
-                    <td>{{ ticket.asignee_id }}</td>
-                    {{
-                        ticket.value
-                    }}
+                    <td>
+                        {{ getUserById(ticket.user_asignee_id).value.name }}
+                    </td>
+                    <td>
+                        <router-link
+                            :to="{
+                                name: 'tickets.edit',
+                                params: { id: ticket.id },
+                            }"
+                        >
+                            Bewerk
+                        </router-link>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -37,10 +47,10 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from "vue";
 import ErrorMessage from "../../../components/ErrorMessage.vue";
+import { fetchUsers, getUserById } from "../../users/store.ts";
 import { getAllTickets, fetchTickets } from "../store";
-
-fetchTickets();
 
 const getColor = (status: string) => {
     switch (status) {
@@ -54,4 +64,9 @@ const getColor = (status: string) => {
             return "blue";
     }
 };
+
+onMounted(() => {
+    fetchTickets();
+    fetchUsers();
+});
 </script>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Http\Resources\TicketResource;
 use App\Http\Requests\StoreTicketRequest;
+use App\Http\Requests\UpdateTicketRequest;
 use Illuminate\Support\Facades\Log;
 
 
@@ -32,9 +33,22 @@ class TicketController extends Controller
 
         Ticket::create($validatedData)->categories()->attach($validatedData['category_ids']);
 
-
         $tickets = $this->getAuthorizedTickets($user);
         return TicketResource::collection($tickets);
+    }
+
+    public function update(UpdateTicketRequest $request, Ticket $ticket)
+    {
+        $validatedData = $request->validated();
+        $ticket->update($validatedData);
+
+        if (isset($validatedData['category_ids'])) {
+            $ticket->categories()->sync($validatedData['category_ids']);
+        }
+
+        $tickets = $this->getAuthorizedTickets($request->user());
+        return TicketResource::collection($tickets);
+
     }
 
     private function getAuthorizedTickets($user){

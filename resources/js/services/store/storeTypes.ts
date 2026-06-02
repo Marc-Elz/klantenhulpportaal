@@ -12,7 +12,7 @@ export interface ticketType extends storeType {
     title: string;
     description: string;
     user_submitter_id: number;
-    asignee_id: number;
+    user_asignee_id: number;
     category_ids: number[];
     status: Status;
     priority: Priority;

@@ -22,7 +22,7 @@ class TicketResource extends JsonResource
             'priority' => $this->priority,
             'category_ids' => CategoryRecource::collection($this->categories),
             'submitter_id' => $this->user_submitter_id,
-            'asignee_id' => $this->user_asignee_id,
+            'user_asignee_id' => $this->user_asignee_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

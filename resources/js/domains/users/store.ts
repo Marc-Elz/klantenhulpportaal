@@ -1,5 +1,6 @@
 import { storeModuleFactory } from "../../services/store";
 import { userType } from "../../services/store/storeTypes";
+import { computed } from "vue";
 
 const userStore = storeModuleFactory("users");
 
@@ -10,8 +11,8 @@ export const fetchUsers = async () => {
     return await userStore.actions.getAll();
 };
 
-export const createUser = async (newTicket: userType) => {
-    return await userStore.actions.create(newTicket);
+export const createUser = async (newUser: userType) => {
+    return await userStore.actions.create(newUser);
 };
 
 export const updateUser = async (
@@ -24,3 +25,8 @@ export const updateUser = async (
 export const deleteUser = async (id: number) => {
     return await userStore.actions.delete(id);
 };
+
+export const getAllAdmins = computed(() => {
+    const users = getAllUsers;
+    return Object.values(users.value).filter((user) => user.role === "admin");
+});
