@@ -26,7 +26,7 @@
                     </td>
                     <td>
                         {{
-                            getUserById(ticket.submitter_id).value.name ||
+                            getUserById(ticket.submitter_id).value?.name ||
                             "Unknown Submitter"
                         }}
                     </td>
