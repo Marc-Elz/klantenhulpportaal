@@ -24,11 +24,19 @@
                     <td :style="{ color: getColor(ticket.status) }">
                         {{ ticket.status }}
                     </td>
-                    <td>{{ getUserById(ticket.submitter_id).value.name }}</td>
+                    <td>
+                        {{
+                            getUserById(ticket.submitter_id).value.name ||
+                            "Unknown Submitter"
+                        }}
+                    </td>
                     <td>{{ ticket.created_at }}</td>
                     <td>{{ ticket.updated_at }}</td>
                     <td>
-                        {{ getUserById(ticket.user_asignee_id).value.name }}
+                        {{
+                            getUserById(ticket.user_asignee_id).value?.name ||
+                            "Unassigned"
+                        }}
                     </td>
                     <td>
                         <router-link
