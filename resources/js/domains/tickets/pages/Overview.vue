@@ -19,7 +19,7 @@
                 <tr v-for="ticket in getAllTickets" :key="ticket.id">
                     <td>{{ ticket.id }}</td>
                     <td>{{ ticket.title }}</td>
-                    <td>{{ ticket.category_ids }}</td>
+                    <td>{{ ticket.category_ids.map((c: {id: number; name: string}) => c.name).join(', ') }}</td>
                     <!-- now gets a collection, should only show the names of categories-->
                     <td :style="{ color: getColor(ticket.status) }">
                         {{ ticket.status }}
