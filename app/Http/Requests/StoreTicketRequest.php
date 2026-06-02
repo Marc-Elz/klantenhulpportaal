@@ -26,12 +26,9 @@ class StoreTicketRequest extends FormRequest
             'title' => 'required|string|max:255',
             'user_submitter_id' => 'nullable|integer', // Should not be decided in frontend, otherwise users can submit tickets in the name of other users?
             'description' => 'sometimes|string',
-            'status' => 'sometimes|string', // status will always be unresolved on creation?
+            'status' => 'nullable|string',
             'priority' => 'sometimes|string',
-            // 'user_asignee_id' => '',
-            // 'category_id' => '',
-
-
+            'category_ids' => 'required|array',
         ];
     }
 }

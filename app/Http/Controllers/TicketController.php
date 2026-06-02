@@ -15,9 +15,7 @@ class TicketController extends Controller
     {
         $user = $request->user();
 
-        $tickets = $user->role === 'admin'
-            ? Ticket::all()
-            : Ticket::where('user_submitter_id', $user->id)->get();
+        $tickets = $this->getAuthorizedTickets($user);
 
         return TicketResource::collection($tickets);
     }
@@ -27,20 +25,22 @@ class TicketController extends Controller
 
         // ignore any user_submitter_id from frontend to prevent users from submitting tickets in the name of other users
         $user = $request->user();
-        //$validatedData = $request->validated();
-        // $validatedData = $request->merge(['user_submitter_id' => $user->id, 'status' => "open"]);
-        Log::debug('initial');
-        Log::debug($request);
 
         $validatedData = $request->validated();
         $validatedData['user_submitter_id'] = $user->id;
-        Log::debug('Final Data: ');
-        Log::debug($validatedData);
+        $validatedData['status'] = "open";
 
-        $ticket = Ticket::create($validatedData);
+        Ticket::create($validatedData)->categories()->attach($validatedData['category_ids']);
 
 
-        $tickets = Ticket::all();
+        $tickets = $this->getAuthorizedTickets($user);
         return TicketResource::collection($tickets);
+    }
+
+    private function getAuthorizedTickets($user){
+        $tickets = $user->role === 'admin'
+            ? Ticket::all()
+            : Ticket::where('user_submitter_id', $user->id)->get();
+        return $tickets;
     }
 }
