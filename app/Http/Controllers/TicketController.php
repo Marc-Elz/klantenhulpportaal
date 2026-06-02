@@ -39,6 +39,12 @@ class TicketController extends Controller
 
     public function update(UpdateTicketRequest $request, Ticket $ticket)
     {
+        $user = $request->user();
+
+        if ($user->role !== 'admin' && $user->id !== $ticket['user_submitter_id']){
+            return response()->json(['status_message' => 'Unathorized'], 401);
+        }
+
         $validatedData = $request->validated();
         $ticket->update($validatedData);
 
