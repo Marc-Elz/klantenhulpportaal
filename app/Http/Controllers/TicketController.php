@@ -41,8 +41,8 @@ class TicketController extends Controller
     {
         $user = $request->user();
 
-        if ($user->role !== 'admin' && $user->id !== $ticket['user_submitter_id']){
-            return response()->json(['status_message' => 'Unathorized'], 401);
+        if ($user->role !== 'admin' && $user->id !== $ticket['user_submitter_id']) {
+            return response()->json(['status_message' => 'Unauthorized'], 401);
         }
 
         $validatedData = $request->validated();
@@ -54,10 +54,10 @@ class TicketController extends Controller
 
         $tickets = $this->getAuthorizedTickets($request->user());
         return TicketResource::collection($tickets);
-
     }
 
-    private function getAuthorizedTickets($user){
+    private function getAuthorizedTickets($user)
+    {
         $tickets = $user->role === 'admin'
             ? Ticket::all()
             : Ticket::where('user_submitter_id', $user->id)->get();
