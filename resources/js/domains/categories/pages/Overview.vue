@@ -12,9 +12,21 @@
             <tbody>
                 <tr v-for="category in getAllCategories" :key="category.id">
                     <td>{{ category.name }}</td>
-                    <button @click="deleteCategory(category.id)">
-                        Verwijder
-                    </button>
+                    <td>
+                        <router-link
+                            :to="{
+                                name: 'categories.edit',
+                                params: { id: category.id },
+                            }"
+                        >
+                            Bewerk
+                        </router-link>
+                    </td>
+                    <td>
+                        <button @click="deleteCategory(category.id)">
+                            Verwijder
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>

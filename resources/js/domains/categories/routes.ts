@@ -1,4 +1,5 @@
 import Create from "./pages/Create.vue";
+import Edit from "./pages/Edit.vue";
 import Overview from "./pages/Overview.vue";
 
 export const categoryRoutes = [
@@ -13,6 +14,13 @@ export const categoryRoutes = [
         path: "/create",
         component: Create,
         name: "categories.create",
+        meta: { requiresAuth: true, allowedRoles: ["admin"] },
+    },
+
+    {
+        path: "/categories/:id/edit",
+        component: Edit,
+        name: "categories.edit",
         meta: { requiresAuth: true, allowedRoles: ["admin"] },
     },
 ];

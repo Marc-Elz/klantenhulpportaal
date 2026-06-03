@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DestroyCategoryRequest;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryRecource;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -27,9 +28,18 @@ class CategoryController extends Controller
         return CategoryRecource::collection($categories);
     }
 
+    public function update(UpdateCategoryRequest $request, Category $category)
+    {
+        $validatedData = $request->validated();
+        $category->update($validatedData);
+
+        $categories = Category::all();
+        return CategoryRecource::collection($categories);
+    }
+
     public function destroy(DestroyCategoryRequest $request, Category $category)
     {
-        // before i can delete the category i need to find the pivots its connected to and kill those
+        // TODO check if tickets with categories exist if true throw exception to display
         $category->tickets()->detach();
         $category->delete();
 
