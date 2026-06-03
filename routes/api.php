@@ -19,8 +19,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/tickets', [TicketController::class, 'store']);
     Route::put('/tickets/{ticket}', [TicketController::class, 'update']);
     Route::get('/categories', [CategoryController::class, 'index']);
-    Route::get('/users', [UserController::class, 'index']);
+    Route::post('/categories', [CategoryController::class, 'store']);
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
 
+
+    Route::get('/users', [UserController::class, 'index']);
 });
 
 // admin routes

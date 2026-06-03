@@ -24,6 +24,16 @@ import ProfileBar from "./components/ProfileBar.vue";
                     User overview
                 </router-link>
             </li>
+            <li>
+                <router-link :to="{ name: 'categories.overview' }">
+                    Categorieën overview
+                </router-link>
+            </li>
+            <li>
+                <router-link :to="{ name: 'categories.create' }">
+                    Categorie create
+                </router-link>
+            </li>
         </ul>
     </nav>
 </template>

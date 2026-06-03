@@ -1,5 +1,6 @@
 import { storeModuleFactory } from "../../services/store";
 import { categoryType } from "../../services/store/storeTypes";
+import { computed } from "vue";
 
 const categoryStore = storeModuleFactory("categories");
 
@@ -24,3 +25,7 @@ export const updateCategory = async (
 export const deleteCategory = async (id: number) => {
     return await categoryStore.actions.delete(id);
 };
+
+// export const getAllCategoriesSorted: categoryType => computed(() => {
+
+// });
