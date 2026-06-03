@@ -1,4 +1,5 @@
 import Create from "./pages/Create.vue";
+import Detail from "./pages/Detail.vue";
 import Edit from "./pages/Edit.vue";
 import Overview from "./pages/Overview.vue";
 
@@ -19,6 +20,13 @@ export const ticketRoutes = [
         path: "/tickets/:id/edit",
         component: Edit,
         name: "tickets.edit",
+        meta: { requiresAuth: true },
+    },
+
+    {
+        path: "/tickets/:id/details",
+        component: Detail,
+        name: "tickets.detail",
         meta: { requiresAuth: true },
     },
 ];

@@ -15,11 +15,23 @@
                     <th>Edit ticket</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr v-for="ticket in getAllTickets" :key="ticket.id">
+            <tbody
+                v-for="ticket in getAllTickets"
+                :key="ticket.id"
+                v-on:click="clickList(ticket)"
+            >
+                <tr class="clickable-row">
                     <td>{{ ticket.id }}</td>
                     <td>{{ ticket.title }}</td>
-                    <td>{{ ticket.category_ids.map((c: {id: number; name: string}) => c.name).join(', ') }}</td>
+                    <td>
+                        {{
+                            ticket.category_ids
+                                .map(
+                                    (c: { id: number; name: string }) => c.name,
+                                )
+                                .join(", ")
+                        }}
+                    </td>
                     <td :style="{ color: getColor(ticket.status) }">
                         {{ ticket.status }}
                     </td>
@@ -58,6 +70,14 @@ import { onMounted } from "vue";
 import ErrorMessage from "../../../components/ErrorMessage.vue";
 import { fetchUsers, getUserById } from "../../users/store.ts";
 import { getAllTickets, fetchTickets } from "../store";
+import { ticketType } from "../../../services/store/storeTypes.ts";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+function clickList(ticket: ticketType) {
+    router.push({ name: "tickets.detail", params: { id: ticket.id } });
+}
 
 const getColor = (status: string) => {
     switch (status) {
