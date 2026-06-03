@@ -15,14 +15,18 @@
                     <th>Edit ticket</th>
                 </tr>
             </thead>
-            <tbody
-                v-for="ticket in getAllTickets"
-                :key="ticket.id"
-                v-on:click="clickList(ticket)"
-            >
+            <tbody v-for="ticket in getAllTickets" :key="ticket.id">
                 <tr class="clickable-row">
                     <td>{{ ticket.id }}</td>
-                    <td>{{ ticket.title }}</td>
+                    <td>
+                        <router-link
+                            :to="{
+                                name: 'tickets.detail',
+                                params: { id: ticket.id },
+                            }"
+                            >{{ ticket.title }}
+                        </router-link>
+                    </td>
                     <td>
                         {{
                             ticket.category_ids
