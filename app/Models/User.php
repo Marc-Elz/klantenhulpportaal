@@ -41,4 +41,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Note::class);
     }
+
+    // Method to check if user is admin
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    // Scope to get only admin users
+    public function scopeAdmins($query)
+    {
+        return $query->where('role', 'admin');
+    }
 }
