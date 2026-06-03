@@ -23,7 +23,7 @@
                         </router-link>
                     </td>
                     <td>
-                        <button @click="deleteCategory(category.id)">
+                        <button @click="promptDeleteCategory(category)">
                             Verwijder
                         </button>
                     </td>
@@ -36,6 +36,17 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { deleteCategory, fetchCategories, getAllCategories } from "../store";
+import { categoryType } from "../../../services/store/storeTypes";
+import ErrorMessage from "../../../components/ErrorMessage.vue";
+
+function promptDeleteCategory(category: categoryType) {
+    // Better version "Are you sure you want to delete category: {category.name} "; but not supported with window.cofirm
+    const confirmed = window.confirm("Press OK to confirm deletion");
+    console.log(confirmed);
+    if (confirmed) {
+        deleteCategory(category.id);
+    }
+}
 
 onMounted(() => {
     fetchCategories();

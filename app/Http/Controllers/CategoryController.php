@@ -39,15 +39,14 @@ class CategoryController extends Controller
 
     public function destroy(DestroyCategoryRequest $request, Category $category)
     {
-        // TODO check if tickets with categories exist if true throw exception to display
-        $category->tickets()->detach();
-        $category->delete();
 
-        // if (!$user->role === 'admin') {
-        //     throw new HttpResponseException(response()->json([
-        //         'message' => 'Category kon niet worden verwijderd door non-admin gebruiker'
-        //     ], 403));
-        // }
+        if ($category->tickets()->where('category_id', $category->id)->exists()) {
+            throw new HttpResponseException(response()->json([
+                'message' => 'Category kon niet worden verwijderd omdat het gekoppeld is aan 1 of meer tickets'
+            ], 422));
+        }
+
+        $category->delete();
         return response()->json(['message' => 'Category succesvol verwijderd']);
     }
 }
