@@ -38,7 +38,7 @@ const checkAuth = () => {
     }
 };
 
-watch(globalUser, (newVal) => {
+watch(getCurrentUser, (newVal) => {
     if (newVal) {
         checkAuth();
     }

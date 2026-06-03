@@ -50,8 +50,7 @@ export const authStore = () => {
                 const response = await getRequest("/user");
                 setters.setCurrentUser(response.data);
                 return response.data;
-            }
-            catch {
+            } catch {
                 clearStoredUser();
                 return null;
             }
@@ -82,5 +81,3 @@ export const getCurrentUser = () => {
     const response = myAuthStore.getters.getCurrentUser();
     return response.value;
 };
-
-export const globalUser = ref(null);

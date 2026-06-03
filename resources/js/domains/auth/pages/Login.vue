@@ -9,8 +9,8 @@
 import Form from "../components/Form.vue";
 import { useRouter } from "vue-router";
 import { authType } from "../../../services/store/storeTypes";
-import { authenticate, getCurrentUser } from "../store";
-import { globalUser, fetchSetUser } from "../store";
+import { authenticate } from "../store";
+import { fetchSetUser } from "../store";
 
 const router = useRouter();
 
@@ -20,11 +20,6 @@ const handleSubmit = async (data: authType) => {
     if (response && response.status === 200) {
         router.push({ name: "tickets.overview" });
         await fetchSetUser();
-
-        const current = getCurrentUser();
-        if (current != null) {
-            globalUser.value = current;
-        }
     }
 };
 </script>
