@@ -77,6 +77,12 @@
 
     <div>
         <h2>Discussion</h2>
+        (Comments made by admins visible for submitter)
+    </div>
+
+    <div>
+        <h2>Notes</h2>
+        (Only visible for admins)
     </div>
 </template>
 <script setup lang="ts">
