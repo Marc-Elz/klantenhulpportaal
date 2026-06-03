@@ -35,7 +35,12 @@
 
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { deleteCategory, fetchCategories, getAllCategories } from "../store";
+import {
+    deleteCategory,
+    fetchCategories,
+    getAllCategories,
+    sortedCategories,
+} from "../store";
 
 onMounted(() => {
     fetchCategories();

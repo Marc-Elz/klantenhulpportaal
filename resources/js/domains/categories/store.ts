@@ -26,6 +26,10 @@ export const deleteCategory = async (id: number) => {
     return await categoryStore.actions.delete(id);
 };
 
-// export const getAllCategoriesSorted: categoryType => computed(() => {
-
-// });
+export const sortedCategories = computed(() => {
+    console.log(getAllCategories);
+    console.log(getAllCategories.value);
+    return [...getAllCategories.value].sort((a, b) =>
+        a.name.localeCompare(b.name),
+    );
+});
