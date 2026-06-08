@@ -96,7 +96,6 @@ import { fetchTickets, getTicketById } from "../store";
 import { getUserById, fetchUsers } from "../../users/store.ts";
 import { commentType } from "../../../services/store/storeTypes.ts";
 import {
-    clearComments,
     createComment,
     fetchComments,
     setTicketId,
@@ -114,7 +113,6 @@ const handleCommentSubmit = async (data: commentType) => {
 };
 
 onMounted(() => {
-    clearComments();
     fetchTickets();
     fetchUsers();
     setTicketId(ticket_id);
