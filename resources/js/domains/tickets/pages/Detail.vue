@@ -77,7 +77,8 @@
 
     <div>
         <h2>Discussion</h2>
-        (Comments made by admins visible for submitter)
+        <TicketDiscussion />
+        <Form :ticket_id="ticket_id" @submit="handleCommentSubmit" />
     </div>
 
     <div>
@@ -89,8 +90,16 @@
 import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 import ErrorMessage from "../../../components/ErrorMessage.vue";
+import Form from "../../comments/components/Form.vue";
+import TicketDiscussion from "../../comments/components/TicketDiscussion.vue";
 import { fetchTickets, getTicketById } from "../store";
 import { getUserById, fetchUsers } from "../../users/store.ts";
+import { commentType } from "../../../services/store/storeTypes.ts";
+import {
+    createComment,
+    fetchComments,
+    setTicketId,
+} from "../../comments/store.ts";
 
 const route = useRoute();
 
@@ -99,8 +108,14 @@ const ticket_id = route.params.id as string | number;
 const ticket = getTicketById(ticket_id);
 console.log(ticket.value);
 
+const handleCommentSubmit = async (data: commentType) => {
+    await createComment(data);
+};
+
 onMounted(() => {
     fetchTickets();
     fetchUsers();
+    setTicketId(ticket_id);
+    fetchComments();
 });
 </script>

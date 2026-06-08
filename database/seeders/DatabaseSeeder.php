@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CategorySeeder::class,
             TicketSeeder::class,
+            CommentSeeder::class,
         ]);
     }
 }

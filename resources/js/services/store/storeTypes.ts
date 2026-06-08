@@ -29,6 +29,18 @@ export interface authType extends storeType {
     password: string;
 }
 
+export interface commentType extends storeType {
+    content: string;
+    user_id: number;
+    ticket_id: number;
+}
+
+export interface noteType extends storeType {
+    content: string;
+    user_id: number;
+    ticket_id: number;
+}
+
 export type Role = "admin" | "user";
 export type Status = "open" | "in_progress" | "resolved" | "closed";
 export type Priority = "low" | "medium" | "high";
