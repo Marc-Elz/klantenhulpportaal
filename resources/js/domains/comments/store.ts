@@ -1,5 +1,7 @@
 import { storeModuleFactory } from "../../services/store";
 import { commentType } from "../../services/store/storeTypes";
+import { computed } from "vue";
+
 const commentStore = storeModuleFactory<commentType>(`/comments`);
 
 export const setTicketId = (id: number | string) => {
@@ -28,3 +30,9 @@ export const updateComment = async (
 export const deleteComment = async (id: number) => {
     return await commentStore.actions.delete(id);
 };
+
+export const getCommentsSorted = computed(() => {
+    return Object.values(getAllComments.value).sort((a, b) =>
+        new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+    );
+});

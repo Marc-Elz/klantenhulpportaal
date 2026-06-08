@@ -11,7 +11,7 @@ export interface userType extends storeType {
 export interface ticketType extends storeType {
     title: string;
     description: string;
-    user_submitter_id: number;
+    submitter_id: number;
     user_asignee_id: number;
     category_ids: number[];
     status: Status;
@@ -33,6 +33,8 @@ export interface commentType extends storeType {
     content: string;
     user_id: number;
     ticket_id: number;
+    created_at: Date;
+    updated_at: Date;
 }
 
 export interface noteType extends storeType {

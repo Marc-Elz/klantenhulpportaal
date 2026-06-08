@@ -10,7 +10,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="category in getAllCategories" :key="category.id">
+                <tr v-for="category in getAllCategoriesSorted" :key="category.id">
                     <td>{{ category.name }}</td>
                     <td>
                         <router-link
@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { onMounted } from "vue";
-import { deleteCategory, fetchCategories, getAllCategories } from "../store";
+import { deleteCategory, fetchCategories, getAllCategories, getAllCategoriesSorted } from "../store";
 import { categoryType } from "../../../services/store/storeTypes";
 import ErrorMessage from "../../../components/ErrorMessage.vue";
 

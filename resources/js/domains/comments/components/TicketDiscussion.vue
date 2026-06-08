@@ -2,7 +2,7 @@
     (Comments made by admins visible for submitter) (If user is admin show
     comment box for creating comment)
 
-    <li v-for="comment in getAllComments" :key="comment.id">
+    <li v-for="comment in getCommentsSorted" :key="comment.id">
         {{ comment.content }}
         <br />
         {{ getUserById(comment.user_id).value.name }}
@@ -13,5 +13,5 @@
 
 <script setup lang="ts">
 import { getUserById } from "../../users/store";
-import { getAllComments } from "../store";
+import { getCommentsSorted } from "../store";
 </script>

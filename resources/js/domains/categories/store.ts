@@ -26,6 +26,8 @@ export const deleteCategory = async (id: number) => {
     return await categoryStore.actions.delete(id);
 };
 
-// export const getAllCategoriesSorted: categoryType => computed(() => {
-
-// });
+export const getAllCategoriesSorted = computed(() => {
+    return Object.values(getAllCategories.value).sort((a, b) =>
+        a.name.localeCompare(b.name),
+    );
+});
