@@ -12,12 +12,21 @@ export const router = createRouter({
 
 // Attempt to make only the login page viewable for unauthenticated users
 router.beforeEach(async (to) => {
-    let user = getCurrentUser();
+    let user = getCurrentUser.value;
+
+        // Fetch user if laravel session exist
+    if (!user) {
+        try {
+            user = await fetchSetUser();
+        } catch {
+            user = null;
+        }
+    }
 
     const protectedRoute = to.matched.some((route) => route.meta.allowedRoles);
     if (protectedRoute) {
         const allowedRoles = to.meta.allowedRoles as string[];
-        if (!allowedRoles.includes(user["role"])) {
+        if (!user || !allowedRoles.includes(user["role"])) {
             return { name: "auth.403" };
         }
     }
@@ -26,15 +35,6 @@ router.beforeEach(async (to) => {
 
     if (!requiresAuth) {
         return true;
-    }
-
-    // Fetch user if laravel session exists but the user is not set in the store.
-    if (!user) {
-        try {
-            user = await fetchSetUser();
-        } catch {
-            user = null;
-        }
     }
 
     if (user) return true;

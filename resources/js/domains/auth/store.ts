@@ -1,33 +1,20 @@
 import axios from "axios";
 import { ref, computed } from "vue";
 import { getRequest, postRequest } from "../../services/http";
-import { authType } from "../../services/store/storeTypes";
+import { authType, userType } from "../../services/store/storeTypes";
 
-export const setStoredUser = (userData: any) => {
-    localStorage.setItem("currentUser", JSON.stringify(userData));
-};
 
-export const getStoredUser = () => {
-    const userData = localStorage.getItem("currentUser");
-    return userData ? JSON.parse(userData) : null;
-};
 
-export const clearStoredUser = () => {
-    localStorage.removeItem("currentUser");
-};
-
-export const authStore = () => {
-    const state = ref<any>({});
+const authStore = () => {
+    const state = ref<userType | null>(null);
 
     const getters = {
-        getCurrentUser: () =>
-            computed(() => state.value.data || getStoredUser()),
+        getCurrentUser: computed(() => state.value),
     };
 
     const setters = {
-        setCurrentUser: (item: [authType]) => {
+        setCurrentUser: (item: userType) => {
             state.value = Object.freeze(item);
-            setStoredUser(item);
         },
     };
 
@@ -41,7 +28,6 @@ export const authStore = () => {
             const response = await postRequest("/logout", data);
             if (response && response.status === 200) {
                 state.value = null;
-                clearStoredUser();
             }
             return response;
         },
@@ -51,7 +37,6 @@ export const authStore = () => {
                 setters.setCurrentUser(response.data);
                 return response.data;
             } catch {
-                clearStoredUser();
                 return null;
             }
         },
@@ -77,7 +62,4 @@ export const logout = async (data: authType) => {
     return response;
 };
 
-export const getCurrentUser = () => {
-    const response = myAuthStore.getters.getCurrentUser();
-    return response.value;
-};
+export const getCurrentUser = myAuthStore.getters.getCurrentUser;
