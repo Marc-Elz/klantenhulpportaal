@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ticket;
+use App\Models\User;
 use App\Http\Resources\TicketResource;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
-use Illuminate\Support\Facades\Log;
 
 
 class TicketController extends Controller
@@ -56,7 +56,7 @@ class TicketController extends Controller
         return TicketResource::collection($tickets);
     }
 
-    private function getAuthorizedTickets($user)
+    private function getAuthorizedTickets(User $user)
     {
         $tickets = $user->role === 'admin'
             ? Ticket::all()
