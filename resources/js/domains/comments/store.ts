@@ -9,13 +9,18 @@ import {
 import { ref, computed } from "vue";
 
 const comments = ref<any>({});
-let ticketId = 1;
 
 // const commentStore = storeModuleFactory(`/comments`);
-const apiRoute = `tickets/${ticketId}/comments`;
+let ticketId = null;
+let apiRoute = "";
 
 export const setTicketId = (id: number | string) => {
     ticketId = id;
+    apiRoute = `tickets/${ticketId}/comments`;
+};
+
+export const clearComments = () => {
+    comments.value = {};
 };
 
 export const getAllComments = computed(() => comments.value);
