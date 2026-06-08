@@ -4,6 +4,15 @@ import { storeType } from "./storeTypes";
 
 export const storeModuleFactory = <T extends storeType>(moduleName: string) => {
     const state = ref<Record<number | string, T>>({});
+    let apiRoute = moduleName;
+
+    const setRoute = (route: string) => {
+        apiRoute = route;
+    };
+
+    const clearAll = () => {
+        state.value = {};
+    };
 
     const getters = {
         all: computed(() => state.value),
@@ -24,28 +33,28 @@ export const storeModuleFactory = <T extends storeType>(moduleName: string) => {
 
     const actions = {
         getAll: async () => {
-            const { data } = await getRequest(moduleName);
+            const { data } = await getRequest(apiRoute);
             if (!data) return;
             setters.setAll(data);
         },
 
         create: async (item: T) => {
-            const { data } = await postRequest(moduleName, item);
+            const { data } = await postRequest(apiRoute, item);
             if (!data) return;
             setters.setAll(data);
         },
 
         update: async (id: number | string, item: T) => {
-            const { data } = await putRequest(`${moduleName}/${id}`, item);
+            const { data } = await putRequest(`${apiRoute}/${id}`, item);
             if (!data) return;
             setters.setAll(data);
         },
 
         delete: async (id: number) => {
-            await deleteRequest(`${moduleName}/${id}`);
+            await deleteRequest(`${apiRoute}/${id}`);
             setters.deleteByItem({ id });
         },
     };
 
-    return { getters, setters, actions };
+    return { getters, setters, actions, setRoute, clearAll};
 };
