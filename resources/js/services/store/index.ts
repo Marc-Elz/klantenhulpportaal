@@ -2,8 +2,8 @@ import { ref, computed } from "vue";
 import { getRequest, postRequest, putRequest, deleteRequest } from "../http";
 import { storeType } from "./storeTypes";
 
-export const storeModuleFactory = (moduleName: any) => {
-    const state = ref<any>({});
+export const storeModuleFactory = <T extends storeType>(moduleName: string) => {
+    const state = ref<Record<number | string, T>>({});
 
     const getters = {
         all: computed(() => state.value),
@@ -12,7 +12,7 @@ export const storeModuleFactory = (moduleName: any) => {
     };
 
     const setters = {
-        setAll: (items: [storeType]) => {
+        setAll: (items: T[]) => {
             for (const item of items)
                 state.value[item.id] = Object.freeze(item);
         },
@@ -29,13 +29,13 @@ export const storeModuleFactory = (moduleName: any) => {
             setters.setAll(data);
         },
 
-        create: async (item: storeType) => {
+        create: async (item: T) => {
             const { data } = await postRequest(moduleName, item);
             if (!data) return;
             setters.setAll(data);
         },
 
-        update: async (id: number | string, item: storeType) => {
+        update: async (id: number | string, item: T) => {
             const { data } = await putRequest(`${moduleName}/${id}`, item);
             if (!data) return;
             setters.setAll(data);

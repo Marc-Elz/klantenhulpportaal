@@ -1,7 +1,7 @@
 import { storeModuleFactory } from "../../services/store";
 import { ticketType } from "../../services/store/storeTypes";
 
-const ticketStore = storeModuleFactory("tickets");
+const ticketStore = storeModuleFactory<ticketType>("tickets");
 
 export const getAllTickets = ticketStore.getters.all;
 export const getTicketById = ticketStore.getters.getById;

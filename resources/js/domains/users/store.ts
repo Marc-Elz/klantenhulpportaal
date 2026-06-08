@@ -2,7 +2,7 @@ import { storeModuleFactory } from "../../services/store";
 import { userType } from "../../services/store/storeTypes";
 import { computed } from "vue";
 
-const userStore = storeModuleFactory("users");
+const userStore = storeModuleFactory<userType>("users");
 
 export const getAllUsers = userStore.getters.all;
 export const getUserById = userStore.getters.getById;

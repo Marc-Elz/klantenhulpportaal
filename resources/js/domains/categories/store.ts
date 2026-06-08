@@ -2,7 +2,7 @@ import { storeModuleFactory } from "../../services/store";
 import { categoryType } from "../../services/store/storeTypes";
 import { computed } from "vue";
 
-const categoryStore = storeModuleFactory("categories");
+const categoryStore = storeModuleFactory<categoryType>("categories");
 
 export const getAllCategories = categoryStore.getters.all;
 export const getCategoryById = categoryStore.getters.getById;
