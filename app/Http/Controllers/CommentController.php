@@ -34,7 +34,7 @@ class CommentController extends Controller
         return CommentResource::collection($comments);
     }
 
-    public function update(StoreCommentRequest $request, Comment $comment, Ticket $ticket)
+    public function update(StoreCommentRequest $request, Ticket $ticket, Comment $comment)
     {
         $validatedData = $request->validated();
         $comment->update($validatedData);

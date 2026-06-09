@@ -77,7 +77,7 @@
 
     <div>
         <h2>Discussion</h2>
-        <TicketDiscussion />
+        <TicketDiscussion :ticket_id="ticket_id" />
         <div v-if="isAdmin">
             <CommentForm :ticket_id="ticket_id" @submit="handleCommentSubmit" />
         </div>
@@ -85,7 +85,7 @@
 
     <div>
         <h2>Notes</h2>
-        <NoteList />
+        <NoteList :ticket_id="ticket_id" />
         <div v-if="isAdmin">
             <NoteForm :ticket_id="ticket_id" @submit="handleNoteSubmit" />
         </div>
@@ -101,7 +101,7 @@ import TicketDiscussion from "../../comments/components/TicketDiscussion.vue";
 import NoteList from "../../notes/components/NoteList.vue";
 import { fetchTickets, getTicketById } from "../store";
 import { getUserById, fetchUsers } from "../../users/store.ts";
-import { commentType } from "../../../services/store/storeTypes.ts";
+import { commentType, noteType } from "../../../services/store/storeTypes.ts";
 import {
     createComment,
     fetchComments,
@@ -121,10 +121,11 @@ const ticket_id = route.params.id as string | number;
 const ticket = getTicketById(ticket_id);
 
 const handleCommentSubmit = async (data: commentType) => {
+    // Maybe add ticket_id here instead?
     await createComment(data);
 };
 
-const handleNoteSubmit = async (data: commentType) => {
+const handleNoteSubmit = async (data: noteType) => {
     await createNote(data);
 };
 
