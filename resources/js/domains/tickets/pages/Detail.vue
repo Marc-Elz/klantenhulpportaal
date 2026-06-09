@@ -78,7 +78,9 @@
     <div>
         <h2>Discussion</h2>
         <TicketDiscussion />
-        <Form :ticket_id="ticket_id" @submit="handleCommentSubmit" />
+        <div v-if="isAdmin">
+            <Form :ticket_id="ticket_id" @submit="handleCommentSubmit" />
+        </div>
     </div>
 
     <div>
@@ -100,6 +102,7 @@ import {
     fetchComments,
     setTicketId,
 } from "../../comments/store.ts";
+import { isAdmin } from "../../auth/store.ts";
 
 const route = useRoute();
 

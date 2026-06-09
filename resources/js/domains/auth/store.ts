@@ -3,8 +3,6 @@ import { ref, computed } from "vue";
 import { getRequest, postRequest } from "../../services/http";
 import { authType, userType } from "../../services/store/storeTypes";
 
-
-
 const authStore = () => {
     const state = ref<userType | null>(null);
 
@@ -63,3 +61,7 @@ export const logout = async (data: authType) => {
 };
 
 export const getCurrentUser = myAuthStore.getters.getCurrentUser;
+
+export const isAdmin = computed(
+    () => getCurrentUser.value && getCurrentUser.value["role"] === "admin",
+);
