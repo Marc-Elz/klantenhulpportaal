@@ -32,7 +32,8 @@ export const deleteComment = async (id: number) => {
 };
 
 export const getCommentsSorted = computed(() => {
-    return Object.values(getAllComments.value).sort((a, b) =>
-        new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+    return Object.values(getAllComments.value).sort(
+        (a, b) =>
+            new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
     );
 });
