@@ -3,10 +3,10 @@
     <form @submit.prevent="handleSubmit">
         <textarea
             v-model="form.content"
-            placeholder="Comment on ticket"
+            placeholder="Note on ticket"
         ></textarea>
-        <FormError :name="'comment'" />
-        <button type="submit">Plaats comment</button>
+        <FormError :name="'note'" />
+        <button type="submit">Plaats note</button>
     </form>
 </template>
 
@@ -16,6 +16,7 @@ import FormError from "../../../components/FormError.vue";
 import ErrorMessage from "../../../components/ErrorMessage.vue";
 const props = defineProps(["ticket_id"]);
 const emit = defineEmits(["submit"]);
+
 const form = ref({ content: "", ticket_id: props.ticket_id });
 const handleSubmit = () => {
     emit("submit", form.value);

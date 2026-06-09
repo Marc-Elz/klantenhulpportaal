@@ -79,46 +79,61 @@
         <h2>Discussion</h2>
         <TicketDiscussion />
         <div v-if="isAdmin">
-            <Form :ticket_id="ticket_id" @submit="handleCommentSubmit" />
+            <CommentForm :ticket_id="ticket_id" @submit="handleCommentSubmit" />
         </div>
     </div>
 
     <div>
         <h2>Notes</h2>
-        (Only visible for admins)
+        <NoteList />
+        <div v-if="isAdmin">
+            <NoteForm :ticket_id="ticket_id" @submit="handleNoteSubmit" />
+        </div>
     </div>
 </template>
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 import ErrorMessage from "../../../components/ErrorMessage.vue";
-import Form from "../../comments/components/Form.vue";
+import { default as CommentForm } from "../../comments/components/Form.vue";
+import { default as NoteForm } from "../../notes/components/Form.vue";
 import TicketDiscussion from "../../comments/components/TicketDiscussion.vue";
+import NoteList from "../../notes/components/NoteList.vue";
 import { fetchTickets, getTicketById } from "../store";
 import { getUserById, fetchUsers } from "../../users/store.ts";
 import { commentType } from "../../../services/store/storeTypes.ts";
 import {
     createComment,
     fetchComments,
-    setTicketId,
+    setTicketId as commentSetTicketId,
 } from "../../comments/store.ts";
 import { isAdmin } from "../../auth/store.ts";
+import {
+    createNote,
+    fetchNotes,
+    setTicketId as noteSetTicketId,
+} from "../../notes/store.ts";
 
 const route = useRoute();
 
 const ticket_id = route.params.id as string | number;
 
 const ticket = getTicketById(ticket_id);
-console.log(ticket.value);
 
 const handleCommentSubmit = async (data: commentType) => {
     await createComment(data);
 };
 
+const handleNoteSubmit = async (data: commentType) => {
+    await createNote(data);
+};
+
 onMounted(() => {
     fetchTickets();
     fetchUsers();
-    setTicketId(ticket_id);
+    commentSetTicketId(ticket_id);
+    noteSetTicketId(ticket_id);
+    fetchNotes();
     fetchComments();
 });
 </script>

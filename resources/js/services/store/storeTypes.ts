@@ -41,6 +41,8 @@ export interface noteType extends storeType {
     content: string;
     user_id: number;
     ticket_id: number;
+    created_at: Date;
+    updated_at: Date;
 }
 
 export type Role = "admin" | "user";

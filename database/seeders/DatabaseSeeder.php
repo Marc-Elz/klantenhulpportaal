@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             TicketSeeder::class,
             CommentSeeder::class,
+            NoteSeeder::class,
         ]);
     }
 }
