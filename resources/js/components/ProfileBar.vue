@@ -2,7 +2,7 @@
     <div class="profile-bar">
         <div v-if="isLoggedIn">
             <button @click="logUserOut()">Log out</button>
-            <h1>Welcome {{ getCurrentUser && getCurrentUser.name }}</h1>
+            <h2>Welcome {{ getCurrentUser && getCurrentUser.name }}</h2>
         </div>
         <div v-else>
             <router-link :to="{ name: 'auth.login' }"> Log in </router-link>
@@ -11,14 +11,9 @@
 </template>
 
 <script setup lang="ts">
-import {
-    logout,
-    fetchSetUser,
-    getCurrentUser,
-} from "../domains/auth/store";
+import { logout, fetchSetUser, getCurrentUser } from "../domains/auth/store";
 import { useRouter } from "vue-router";
-import { computed, onMounted} from "vue";
-
+import { computed, onMounted } from "vue";
 
 const router = useRouter();
 const isLoggedIn = computed(() => !!getCurrentUser.value);
@@ -28,10 +23,9 @@ const logUserOut = async () => {
     router.push({ name: "auth.login" });
 };
 
-
 onMounted(() => {
     if (!getCurrentUser.value) {
-        fetchSetUser()
+        fetchSetUser();
     }
 });
 </script>

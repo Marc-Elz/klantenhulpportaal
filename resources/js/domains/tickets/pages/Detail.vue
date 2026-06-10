@@ -1,5 +1,5 @@
 <template>
-    <h1>Detail page</h1>
+    <h1>Ticket details: {{ ticket?.title }}</h1>
     <router-link
         :to="{
             name: 'tickets.overview',

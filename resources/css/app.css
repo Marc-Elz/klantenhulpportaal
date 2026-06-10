@@ -79,3 +79,15 @@ p {
 }
 p.note {outline-style: groove; outline-color:#eae672;}
 p.comment {outline-style: groove; outline-color:#4a97f0;}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+p {
+  font-size: 16px;
+}
