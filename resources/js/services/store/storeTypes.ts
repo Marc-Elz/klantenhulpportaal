@@ -4,6 +4,7 @@ export interface storeType {
 
 export interface userType extends storeType {
     name: string;
+    email: string;
     role: Role;
     created_at: Date;
 }
