@@ -24,3 +24,7 @@ export const updateTicket = async (
 export const deleteTicket = async (id: number) => {
     return await ticketStore.actions.delete(id);
 };
+
+export const unMountTickets = () => {
+    return ticketStore.clearAll();
+};

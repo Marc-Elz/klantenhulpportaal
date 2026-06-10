@@ -2,6 +2,7 @@ import axios from "axios";
 import { ref, computed } from "vue";
 import { getRequest, postRequest } from "../../services/http";
 import { authType, userType } from "../../services/store/storeTypes";
+import { unMountTickets } from "../tickets/store";
 
 const authStore = () => {
     const state = ref<userType | null>(null);
@@ -57,6 +58,7 @@ export const authenticate = async (data: authType) => {
 
 export const logout = async (data: authType) => {
     const response = myAuthStore.actions.logout(data);
+    unMountTickets();
     return response;
 };
 
