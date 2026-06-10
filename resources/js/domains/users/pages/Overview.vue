@@ -19,7 +19,9 @@
                 <td>{{ user.role }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.phone_number }}</td>
-                <td><button @click="deleteUser(user.id)">Delete</button></td>
+                <td>
+                    <button @click="promptDeleteUser(user.id)">Delete</button>
+                </td>
             </tbody>
         </table>
     </div>
@@ -29,27 +31,15 @@
 import { onMounted } from "vue";
 import ErrorMessage from "../../../components/ErrorMessage.vue";
 import { deleteUser, fetchUsers, getAllUsers } from "../store.ts";
-import { ticketType } from "../../../services/store/storeTypes.ts";
-import { useRouter } from "vue-router";
 
-const router = useRouter();
-
-function clickList(ticket: ticketType) {
-    router.push({ name: "tickets.detail", params: { id: ticket.id } });
-}
-
-const getColor = (status: string) => {
-    switch (status) {
-        case "resolved":
-            return "green";
-        case "closed":
-            return "grey";
-        case "open":
-            return "red";
-        case "in_progress":
-            return "blue";
+function promptDeleteUser(userId: number) {
+    // Better version "Are you sure you want to delete user: {user.name} "; but not supported with window.cofirm
+    const confirmed = window.confirm("Press OK to confirm deletion");
+    console.log(confirmed);
+    if (confirmed) {
+        deleteUser(userId);
     }
-};
+}
 
 onMounted(() => {
     fetchUsers();

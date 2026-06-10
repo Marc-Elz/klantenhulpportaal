@@ -7,6 +7,9 @@ use App\Http\Resources\AdminResource;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Models\Ticket;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -26,6 +29,19 @@ class UserController extends Controller
 
     public function destroy(DestroyUserRequest $request, User $user)
     {
+        $query = Ticket::where('user_submitter_id', $user->id)
+            ->where(function ($innerquery) {
+                $innerquery->where('status', "open")
+                    ->orWhere('status', "in_progress");
+            })
+            ->get();
+
+        if ($query) {
+            throw new HttpResponseException(response()->json([
+                'message' => 'User kon niet worden verwijderd omdat deze gekoppeld is aan 1 of meer tickets'
+            ], 422));
+        }
+
         $user->delete();
         return response()->json(['message' => 'User succesvol verwijderd']);
     }
