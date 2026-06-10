@@ -73,3 +73,9 @@ td:nth-child(even), th:nth-child(even) {
 #blue { background-color: blue;} 
 #red    {background-color: red}
 #grey  {background-color: Grey}
+
+p {
+  outline-color:#eae672;
+  padding: 5px;
+}
+p.groove {outline-style: groove;}

@@ -1,20 +1,25 @@
 <template>
     <li v-for="note in getNotesSorted" :key="note.id">
-        {{ note.content }}
-        <br />
-        {{ getUserById(note.user_id).value.name }}
-        <br />
-        {{ note.created_at }}
-
-        <button @click="toggleEdit(note.id)">Bewerken</button>
+        <p class="groove">
         <div v-if="isEditing(note.id)">
             <Form
                 :content="note.content"
                 :ticket_id="ticket_id"
                 @submit="handleNoteEdit"
             />
+            <button @click="toggleEdit(note.id)">Cancel</button>
         </div>
+        <div v-else>
+            {{ note.content }}
+        </div>
+        <br />
+        {{ getUserById(note.user_id).value.name }}
+        <br />
+        {{ note.created_at }}
+
+        <button @click="toggleEdit(note.id)">Bewerken</button>
         <button @click="deleteNote(note.id)">Verwijder</button>
+        </p>
     </li>
     {{ editingStates }}
 </template>
@@ -30,7 +35,7 @@ const props = defineProps(["ticket_id"]);
 const editingStates = ref<Record<number, boolean>>({});
 
 const toggleEdit = (noteId: number) => {
-    console.log("start editing: ", noteId);
+    console.log("toggle editing: ", noteId);
 
     editingStates.value[noteId] = !editingStates.value[noteId];
 };
@@ -40,8 +45,9 @@ const isEditing = (noteId: number) => {
 };
 
 const handleNoteEdit = async (data: noteType) => {
+    console.log("data", data)
     console.log("stop editing: ", data.id);
     await updateNote(props.ticket_id, data);
-    editingStates.value[data.id] = false;
+    toggleEdit(data.id);
 };
 </script>
