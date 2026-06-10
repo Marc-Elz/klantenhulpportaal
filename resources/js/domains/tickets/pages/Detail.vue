@@ -87,7 +87,7 @@
         <h2>Notes</h2>
         <NoteList :ticket_id="ticket_id" />
         <div v-if="isAdmin">
-            <NoteForm :ticket_id="ticket_id" @submit="handleNoteSubmit" />
+            <NoteForm :ticket="ticket" @submit="handleNoteSubmit" />
         </div>
     </div>
 </template>

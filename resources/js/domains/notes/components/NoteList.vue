@@ -3,8 +3,7 @@
         <p class="groove">
         <div v-if="isEditing(note.id)">
             <Form
-                :content="note.content"
-                :ticket_id="ticket_id"
+                :note="note"
                 @submit="handleNoteEdit"
             />
             <button @click="toggleEdit(note.id)">Cancel</button>
@@ -35,8 +34,6 @@ const props = defineProps(["ticket_id"]);
 const editingStates = ref<Record<number, boolean>>({});
 
 const toggleEdit = (noteId: number) => {
-    console.log("toggle editing: ", noteId);
-
     editingStates.value[noteId] = !editingStates.value[noteId];
 };
 
@@ -44,10 +41,8 @@ const isEditing = (noteId: number) => {
     return !!editingStates.value[noteId];
 };
 
-const handleNoteEdit = async (data: noteType) => {
-    console.log("data", data)
-    console.log("stop editing: ", data.id);
-    await updateNote(props.ticket_id, data);
-    toggleEdit(data.id);
+const handleNoteEdit = async (updatedNote: noteType) => {
+    await updateNote(updatedNote.id, updatedNote);
+    toggleEdit(updatedNote.id);
 };
 </script>
