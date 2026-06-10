@@ -34,7 +34,7 @@ class UserController extends Controller
                 $innerquery->where('status', "open")
                     ->orWhere('status', "in_progress");
             })
-            ->get();
+            ->first();
 
         if ($query) {
             throw new HttpResponseException(response()->json([
