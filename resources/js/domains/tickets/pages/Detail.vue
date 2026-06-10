@@ -67,11 +67,23 @@
         </tr>
         <tr>
             <th>Gemaakt op</th>
-            <td>{{ ticket?.created_at }}</td>
+            <td>
+                {{
+                    new Date(ticket?.created_at).toLocaleString("nl-NL", {
+                        timeZoneName: "short",
+                    })
+                }}
+            </td>
         </tr>
         <tr>
             <th>Laatst gewijzigd</th>
-            <td>{{ ticket?.updated_at }}</td>
+            <td>
+                {{
+                    new Date(ticket?.updated_at).toLocaleString("nl-NL", {
+                        timeZoneName: "short",
+                    })
+                }}
+            </td>
         </tr>
     </div>
 

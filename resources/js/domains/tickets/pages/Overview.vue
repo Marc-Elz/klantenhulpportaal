@@ -45,8 +45,26 @@
                             "Unknown Submitter"
                         }}
                     </td>
-                    <td>{{ ticket.created_at }}</td>
-                    <td>{{ ticket.updated_at }}</td>
+                    <td>
+                        {{
+                            new Date(ticket.created_at).toLocaleString(
+                                "nl-NL",
+                                {
+                                    timeZoneName: "short",
+                                },
+                            )
+                        }}
+                    </td>
+                    <td>
+                        {{
+                            new Date(ticket.updated_at).toLocaleString(
+                                "nl-NL",
+                                {
+                                    timeZoneName: "short",
+                                },
+                            )
+                        }}
+                    </td>
                     <td>
                         {{
                             getUserById(ticket.user_asignee_id).value?.name ||
