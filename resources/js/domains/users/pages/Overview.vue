@@ -9,6 +9,7 @@
                     <th>Naam</th>
                     <th>Role</th>
                     <th>Email</th>
+                    <th>Phone number</th>
                     <th>Manage</th>
                 </tr>
             </thead>
@@ -17,6 +18,7 @@
                 <td>{{ user.name }}</td>
                 <td>{{ user.role }}</td>
                 <td>{{ user.email }}</td>
+                <td>{{ user.phone_number }}</td>
                 <td><button @click="deleteUser(user.id)">Delete</button></td>
             </tbody>
         </table>
