@@ -14,10 +14,11 @@
 import { ref } from "vue";
 import FormError from "../../../components/FormError.vue";
 import ErrorMessage from "../../../components/ErrorMessage.vue";
-const props = defineProps(["ticket_id", "content"]);
+const props = defineProps({ comment: Object });
 const emit = defineEmits(["submit"]);
 
-const form = ref({ content: props.content || "", ticket_id: props.ticket_id });
+const form = ref({ ...props.comment });
+
 const handleSubmit = () => {
     emit("submit", form.value);
     form.value.content = "";

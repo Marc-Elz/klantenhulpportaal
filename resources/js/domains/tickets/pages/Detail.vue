@@ -79,7 +79,7 @@
         <h2>Discussion</h2>
         <TicketDiscussion :ticket_id="ticket_id" />
         <div v-if="isAdmin">
-            <CommentForm :ticket_id="ticket_id" @submit="handleCommentSubmit" />
+            <CommentForm :comment="new_text" @submit="handleCommentSubmit" />
         </div>
     </div>
 
@@ -87,7 +87,7 @@
         <h2>Notes</h2>
         <NoteList :ticket_id="ticket_id" />
         <div v-if="isAdmin">
-            <NoteForm :ticket="ticket" @submit="handleNoteSubmit" />
+            <NoteForm :note="new_text" @submit="handleNoteSubmit" />
         </div>
     </div>
 </template>
@@ -120,8 +120,12 @@ const ticket_id = route.params.id as string | number;
 
 const ticket = getTicketById(ticket_id);
 
+const new_text = {
+    ticket_id: ticket_id,
+    content: "",
+};
+
 const handleCommentSubmit = async (data: commentType) => {
-    // Maybe add ticket_id here instead?
     await createComment(data);
 };
 

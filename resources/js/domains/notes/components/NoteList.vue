@@ -1,6 +1,6 @@
 <template>
     <li v-for="note in getNotesSorted" :key="note.id">
-        <p class="groove">
+        <p class="note">
         <div v-if="isEditing(note.id)">
             <Form
                 :note="note"

@@ -14,9 +14,8 @@ import ErrorMessage from "../../../components/ErrorMessage.vue";
 const props = defineProps({ note: Object });
 const emit = defineEmits(["submit"]);
 
-const form = ref({
-    ...props.note,
-});
+const form = ref({ ...props.note });
+
 const handleSubmit = () => {
     emit("submit", form.value);
     form.value.content = "";
