@@ -14,7 +14,7 @@
             <br />
             {{ getUserById(comment.user_id).value.name }}
             <br />
-            {{ comment.updated_at }}
+            {{ new Date(comment.created_at).toLocaleString('nl-NL', { timeZoneName: 'short' }) }}
 
             <button @click="toggleEdit(comment.id)">Bewerken</button>
         </p>

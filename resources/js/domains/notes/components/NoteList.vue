@@ -14,13 +14,12 @@
         <br />
         {{ getUserById(note.user_id).value.name }}
         <br />
-        {{ note.created_at }}
+        {{ new Date(note.created_at).toLocaleString('nl-NL', { timeZoneName: 'short' }) }}
 
         <button @click="toggleEdit(note.id)">Bewerken</button>
         <button @click="deleteNote(note.id)">Verwijder</button>
         </p>
     </li>
-    {{ editingStates }}
 </template>
 
 <script setup lang="ts">
