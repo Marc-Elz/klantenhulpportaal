@@ -31,10 +31,9 @@ class TicketFactory extends Factory
         return [
             'title' => $this->faker->word,
             'description' => $this->faker->sentence,
-            'status' => fake()->randomElement(['open', 'in_progress', 'resolved', 'closed']), // If use enum maybe randomelement 0,1,2,3
+            'status' => fake()->randomElement(['open', 'in_progress', 'resolved', 'closed']),
             'priority' => fake()->randomElement(['low', 'medium', 'high']),
-            //            'category_ids' => $this->getRandomCategoryIDs(),
-            'user_submitter_id' => $this->getUserByRole('admin'),
+            'user_submitter_id' => $this->getUserByRole('user'),
             'user_asignee_id' => $this->getUserByRole('admin'),
         ];
     }
