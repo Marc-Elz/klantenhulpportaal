@@ -26,7 +26,7 @@ export interface categoryType extends storeType {
     name: string;
 }
 
-export interface authType extends storeType {
+export interface authType {
     email: string;
     password: string;
 }

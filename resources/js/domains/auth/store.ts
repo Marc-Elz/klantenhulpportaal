@@ -39,6 +39,10 @@ const authStore = () => {
                 return null;
             }
         },
+        resetPassword: async (data: authType) => {
+            const response = await postRequest("/reset-password", data);
+            return response;
+        },
     };
 
     return { getters, actions };
@@ -67,3 +71,13 @@ export const getCurrentUser = myAuthStore.getters.getCurrentUser;
 export const isAdmin = computed(
     () => getCurrentUser.value && getCurrentUser.value["role"] === "admin",
 );
+
+export const resetPassword = async (data: string) => {
+    const authdata = {
+        email: data,
+        password: "",
+        id: 1,
+    };
+    const response = myAuthStore.actions.resetPassword(authdata);
+    return response;
+};
