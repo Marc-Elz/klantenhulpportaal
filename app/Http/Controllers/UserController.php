@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DestroyUserRequest;
+use App\Http\Requests\updateUserRequest;
 use App\Http\Resources\AdminResource;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
@@ -22,6 +23,15 @@ class UserController extends Controller
             $users = User::admins()->get();
             return AdminResource::collection($users);
         }
+
+        $users = User::all();
+        return UserResource::collection($users);
+    }
+
+    public function update(updateUserRequest $request, User $user)
+    {
+        $validatedData = $request->validated();
+        $user->update($validatedData);
 
         $users = User::all();
         return UserResource::collection($users);
