@@ -13,6 +13,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::post('/forgot-password', [LoginController::class, 'forgot_password']);
 Route::post('/reset-password', [LoginController::class, 'reset_password']);
 
 Route::post('/login', [LoginController::class, 'authenticate']);

@@ -7,20 +7,20 @@
             <label>Email</label>
             <input v-model="form.email" type="text" required />
             <FormError :name="form.email" />
-            <button type="submit">Log in</button>
+            <button type="submit">Send link</button>
         </form>
     </div>
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
 import { authType } from "../../../services/store/storeTypes";
-import { resetPassword } from "../store";
+import { forgotPassword } from "../store";
 import FormError from "../../../components/FormError.vue";
 
 const form = ref({ email: "" });
 
 const handleSubmit = async (data: string) => {
-    const response = await resetPassword(data);
+    const response = await forgotPassword(data);
 
     if (response && response.status === 200) {
     }

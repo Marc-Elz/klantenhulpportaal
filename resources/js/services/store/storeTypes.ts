@@ -31,6 +31,12 @@ export interface authType {
     password: string;
 }
 
+export interface resetPasswordPayload {
+    token: string;
+    password: string;
+    password_confirmation: string;
+}
+
 export interface commentType extends storeType {
     content: string;
     user_id: number;
