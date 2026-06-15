@@ -61,9 +61,8 @@ const form = ref<resetPasswordPayload>({
 });
 
 const handleSubmit = async (data: resetPasswordPayload) => {
-    // Check if
     if (form.value.password === form.value.password_confirmation) {
-        const response = await resetPassword(form.value);
+        const response = await resetPassword(data);
 
         if (response && response.status === 200) {
             router.push({ name: "auth.login" });
