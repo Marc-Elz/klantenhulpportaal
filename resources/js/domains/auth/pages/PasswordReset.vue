@@ -53,11 +53,11 @@ import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 
-const form = ref({
+const form = ref<resetPasswordPayload>({
     email: "",
     password: "",
     password_confirmation: "",
-    token: route.query.token,
+    token: route.query.token as string,
 });
 
 const handleSubmit = async (data: resetPasswordPayload) => {

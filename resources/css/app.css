@@ -51,6 +51,11 @@
     font-weight: bold;
 }
 
+.success-style {
+    color: green;
+    font-weight: bold;
+}
+
 .table-container {
   width: 100%;
   overflow-x: auto;

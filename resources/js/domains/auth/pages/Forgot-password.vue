@@ -9,6 +9,8 @@
             <FormError :name="form.email" />
             <button type="submit">Send link</button>
         </form>
+
+        <div :class="'success-style'">{{ status }}</div>
     </div>
 </template>
 <script setup lang="ts">
@@ -19,10 +21,13 @@ import FormError from "../../../components/FormError.vue";
 
 const form = ref({ email: "" });
 
+const status = ref("");
+
 const handleSubmit = async (data: string) => {
     const response = await forgotPassword(data);
 
     if (response && response.status === 200) {
+        status.value = "Request was succesfull!, Check your email";
     }
 };
 </script>

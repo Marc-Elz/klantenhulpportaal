@@ -32,6 +32,7 @@ export interface authType {
 }
 
 export interface resetPasswordPayload {
+    email: string;
     token: string;
     password: string;
     password_confirmation: string;
