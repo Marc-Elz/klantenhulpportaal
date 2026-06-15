@@ -18,7 +18,7 @@ class UserController extends Controller
         $user = $request->user();
 
         if (!$user->isAdmin()) {
-            // Users do not need emailinfo or non user information
+            // Users need only know the names, ids of admins. They do not need emailinfo or names of other regular users.
             $users = User::admins()->get();
             return AdminResource::collection($users);
         }
