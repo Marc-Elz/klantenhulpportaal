@@ -46,7 +46,11 @@ class LoginController extends Controller
 
         $status = Password::sendResetLink($request->only('email'));
 
-        return $status;
+        if ($status === Password::RESET_LINK_SENT) {
+            return response()->json(['message' => __($status)], 200);
+        }
+
+        return response()->json(['message' => __($status)], 400);
     }
 
     public function reset_password(Request $request)

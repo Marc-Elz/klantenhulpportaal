@@ -3,9 +3,6 @@
         <h1>Reset uw wachtwoord</h1>
         <ErrorMessage />
         <form @submit.prevent="handleSubmit(form)">
-            <label>Email:</label>
-            <input v-model="form.email" type="text" required />
-            <br />
             <label>Wachtwoord:</label>
             <input
                 v-model="form.password"
@@ -54,7 +51,7 @@ const route = useRoute();
 const router = useRouter();
 
 const form = ref<resetPasswordPayload>({
-    email: "",
+    email: route.query.email as string,
     password: "",
     password_confirmation: "",
     token: route.query.token as string,
