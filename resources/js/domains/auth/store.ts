@@ -3,6 +3,7 @@ import { ref, computed } from "vue";
 import { getRequest, postRequest } from "../../services/http";
 import {
     authType,
+    registerPayload,
     resetPasswordPayload,
     userType,
 } from "../../services/store/storeTypes";
@@ -42,6 +43,10 @@ const authStore = () => {
             } catch {
                 return null;
             }
+        },
+        register: async (data: registerPayload) => {
+            const response = await postRequest("/register", data);
+            return response;
         },
         forgotPassword: async (data: authType) => {
             const response = await postRequest("/forgot-password", data);
@@ -92,5 +97,10 @@ export const forgotPassword = async (data: string) => {
 
 export const resetPassword = async (data: resetPasswordPayload) => {
     const response = myAuthStore.actions.resetPassword(data);
+    return response;
+};
+
+export const register = async (data: registerPayload) => {
+    const response = myAuthStore.actions.register(data);
     return response;
 };

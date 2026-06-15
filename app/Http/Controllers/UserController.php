@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DestroyUserRequest;
+use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\updateUserRequest;
 use App\Http\Resources\AdminResource;
 use Illuminate\Http\Request;
@@ -26,6 +27,14 @@ class UserController extends Controller
 
         $users = User::all();
         return UserResource::collection($users);
+    }
+
+    public function store(StoreUserRequest $request)
+    {
+        $validatedData = $request->validated();
+        User::create($validatedData);
+
+        return response(["message" => 'Account was registered succesfully']);
     }
 
     public function update(updateUserRequest $request, User $user)

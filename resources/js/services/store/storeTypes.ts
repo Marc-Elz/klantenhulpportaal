@@ -38,6 +38,14 @@ export interface resetPasswordPayload {
     password_confirmation: string;
 }
 
+export interface registerPayload {
+    name: string;
+    email: string;
+    phone_number?: string;
+    password: string;
+    password_confirmation: string;
+}
+
 export interface commentType extends storeType {
     content: string;
     user_id: number;
