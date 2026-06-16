@@ -9,7 +9,6 @@ use App\Http\Resources\TicketResource;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 
-
 class TicketController extends Controller
 {
     public function index(Request $request)
@@ -49,7 +48,8 @@ class TicketController extends Controller
         $ticket->update($validatedData);
 
         if (isset($validatedData['category_ids'])) {
-            $ticket->categories()->sync($validatedData['category_ids']);
+            $extractedIds = collect($validatedData['category_ids'])->pluck('id')->toArray();
+            $ticket->categories()->sync($extractedIds);
         }
 
         $tickets = $this->getAuthorizedTickets($request->user());
