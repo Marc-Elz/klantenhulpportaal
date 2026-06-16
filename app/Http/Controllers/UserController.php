@@ -11,7 +11,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Models\Ticket;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\Log;
+use App\Notifications\Registration;
 
 class UserController extends Controller
 {
@@ -31,16 +31,16 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $validatedData = $request->validated();
-        User::create($validatedData);
+        $user = User::create($request->validated());
+
+        $user->notify(new Registration($user));
 
         return response(["message" => 'Account was registered succesfully']);
     }
 
     public function update(updateUserRequest $request, User $user)
     {
-        $validatedData = $request->validated();
-        $user->update($validatedData);
+        $user->update($request->validated());
 
         $users = User::all();
         return UserResource::collection($users);

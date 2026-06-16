@@ -38,6 +38,8 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        return response()->json(['message' => "Logout was Succesfull"], 200);
     }
 
     public function forgot_password(Request $request)
