@@ -30,9 +30,7 @@
                     <td>
                         {{
                             ticket.category_ids
-                                .map(
-                                    (c: { id: number; name: string }) => c.name,
-                                )
+                                .map((c: categoryType) => c.name)
                                 .join(", ")
                         }}
                     </td>
@@ -66,10 +64,12 @@
                         }}
                     </td>
                     <td>
-                        {{
-                            getUserById(ticket.user_asignee_id).value?.name ||
-                            "Unassigned"
-                        }}
+                        <div v-if="ticket?.user_asignee_id">
+                            {{
+                                getUserById(ticket?.user_asignee_id).value?.name
+                            }}
+                        </div>
+                        <div v-else>Unassigned</div>
                     </td>
                     <td>
                         <router-link
@@ -92,7 +92,10 @@ import { onMounted } from "vue";
 import ErrorMessage from "../../../components/ErrorMessage.vue";
 import { fetchUsers, getUserById } from "../../users/store.ts";
 import { getAllTickets, fetchTickets } from "../store";
-import { ticketType } from "../../../services/store/storeTypes.ts";
+import {
+    categoryType,
+    ticketType,
+} from "../../../services/store/storeTypes.ts";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

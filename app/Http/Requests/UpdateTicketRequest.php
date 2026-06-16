@@ -28,7 +28,7 @@ class UpdateTicketRequest extends FormRequest
             'status' => 'sometimes|string',
             'priority' => 'sometimes|string',
             'category_ids' => 'sometimes|array',
-            'user_asignee_id' => 'integer|exists:users,id',
+            'user_asignee_id' => 'sometimes',
         ];
     }
 }

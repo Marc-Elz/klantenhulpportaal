@@ -18,7 +18,27 @@ export const updateTicket = async (
     id: number | string,
     updatedTicket: ticketType,
 ) => {
-    return await ticketStore.actions.update(id, updatedTicket);
+    let payload = {
+        ...updatedTicket,
+    };
+
+    // Normalize category ids Update ticket only requires a number[] not a category[]
+    if (updatedTicket.category_ids) {
+        const normalizedCategoryIds = updatedTicket.category_ids.map((item) => {
+            if (typeof item === "object" && "id" in item) {
+                return item.id;
+            }
+            return item;
+        });
+
+        payload = {
+            ...updatedTicket,
+            category_ids: normalizedCategoryIds,
+        };
+    }
+
+    console.log("Payload:", payload);
+    return await ticketStore.actions.update(id, payload);
 };
 
 export const deleteTicket = async (id: number) => {

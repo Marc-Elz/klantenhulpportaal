@@ -8,7 +8,7 @@
             <input v-model="form.name" type="text" required />
             <br />
             <label>Telefoonnummer:</label>
-            <input v-model="form.phone_number" type="text" required />
+            <input v-model="form.phone_number" type="text" />
             <br />
             <label>Wachtwoord:</label>
             <input

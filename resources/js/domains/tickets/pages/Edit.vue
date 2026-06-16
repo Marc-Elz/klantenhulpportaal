@@ -1,11 +1,11 @@
 <template>
     <div>
         <h2>Ticket bewerken</h2>
-        <EditForm :ticket="ticket" @submit="handleSubmit" />
+        <Form :ticket="ticket" @submit="handleSubmit" />
     </div>
 </template>
 <script setup lang="ts">
-import EditForm from "../components/EditForm.vue";
+import Form from "../components/Form.vue";
 import { useRoute, useRouter } from "vue-router";
 import { ticketType } from "../../../services/store/storeTypes";
 import { getTicketById, updateTicket } from "../store";

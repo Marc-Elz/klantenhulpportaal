@@ -45,11 +45,24 @@ class TicketController extends Controller
         }
 
         $validatedData = $request->validated();
+
+        // Guard status and asignee_id.
+        if(!$user->isAdmin()){
+            unset($validatedData["status"]);
+            unset($validatedData["user_asignee_id"]);
+        }
+
+        if (isset($validatedData['user_asignee_id'])){
+            $validatedData = $request->validate([
+                'user_asignee_id'=> 'nullable|integer|exists:users,id'
+            ]);
+        }
+
+
         $ticket->update($validatedData);
 
         if (isset($validatedData['category_ids'])) {
-            $extractedIds = collect($validatedData['category_ids'])->pluck('id')->toArray();
-            $ticket->categories()->sync($extractedIds);
+            $ticket->categories()->sync($validatedData['category_ids']);
         }
 
         $tickets = $this->getAuthorizedTickets($request->user());

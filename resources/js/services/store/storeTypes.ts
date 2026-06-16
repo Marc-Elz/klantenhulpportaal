@@ -14,8 +14,8 @@ export interface ticketType extends storeType {
     title: string;
     description: string;
     submitter_id: number;
-    user_asignee_id: number;
-    category_ids: number[];
+    user_asignee_id: number | null;
+    category_ids: number[] | categoryType[];
     status: Status;
     priority: Priority;
     created_at: Date;
