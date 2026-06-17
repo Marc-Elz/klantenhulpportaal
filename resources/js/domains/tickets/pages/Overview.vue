@@ -92,17 +92,10 @@ import { onMounted } from "vue";
 import ErrorMessage from "../../../components/ErrorMessage.vue";
 import { fetchUsers, getUserById } from "../../users/store.ts";
 import { getAllTickets, fetchTickets } from "../store";
-import {
-    categoryType,
-    ticketType,
-} from "../../../services/store/storeTypes.ts";
+import { categoryType } from "../../../services/store/storeTypes.ts";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-
-function clickList(ticket: ticketType) {
-    router.push({ name: "tickets.detail", params: { id: ticket.id } });
-}
 
 const getColor = (status: string) => {
     switch (status) {
