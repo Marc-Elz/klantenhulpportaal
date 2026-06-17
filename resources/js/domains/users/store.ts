@@ -19,6 +19,7 @@ export const updateUser = async (
     id: number | string,
     updatedUser: userType,
 ) => {
+    console.log(updatedUser);
     return await userStore.actions.update(id, updatedUser);
 };
 

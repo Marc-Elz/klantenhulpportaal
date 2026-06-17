@@ -5,14 +5,15 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTicketRequest extends FormRequest
+class updateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        $user = $this->user();
+        return $user->isAdmin();
     }
 
     /**
@@ -23,12 +24,10 @@ class UpdateTicketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'sometimes|string|max:255',
-            'description' => 'sometimes|string',
-            'status' => 'sometimes|string',
-            'priority' => 'sometimes|string',
-            'category_ids' => 'sometimes|array',
-            'user_asignee_id' => 'sometimes',
+            'name' => 'sometimes|string|max:255',
+            'email' => 'sometimes|string',
+            'phone_number' => 'sometimes|string',
+            'role' => 'sometimes|string',
         ];
     }
 }

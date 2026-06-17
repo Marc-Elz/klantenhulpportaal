@@ -10,7 +10,12 @@
         <FormError :name="'description'" />
 
         <label>Categorieën:</label>
-        <select multiple="true" v-model="form.category_ids" required>
+        <select
+            v-model="selectedCategoryIds"
+            multiple="true"
+            class="multi-select"
+            required
+        >
             <option
                 v-for="category in getAllCategories"
                 :key="category.id"
@@ -41,7 +46,10 @@
 import { onMounted, ref } from "vue";
 import FormError from "../../../components/FormError.vue";
 import ErrorMessage from "../../../components/ErrorMessage.vue";
-import type { Priority } from "../../../services/store/storeTypes.ts";
+import type {
+    categoryType,
+    Priority,
+} from "../../../services/store/storeTypes.ts";
 import { fetchCategories, getAllCategories } from "../../categories/store.ts";
 
 const props = defineProps({ ticket: Object });
@@ -52,9 +60,32 @@ const priorities: Priority[] = ["low", "medium", "high"];
 
 const form = ref({ ...props.ticket });
 
-const handleSubmit = () => emit("submit", form.value);
+const selectedCategoryIds = ref([]);
 
-onMounted(() => {
+const handleSubmit = () => {
+    console.log("Form value after:", form.value);
+    console.log("Category value after:", selectedCategoryIds.value);
+    let payload;
+    if (selectedCategoryIds.value) {
+        console.log("category values", selectedCategoryIds.value);
+        payload = {
+            ...form.value,
+            category_ids: selectedCategoryIds.value,
+        };
+    }
+
+    console.log(payload);
+
+    emit("submit", payload);
+};
+
+onMounted(async () => {
     fetchCategories();
+    if (props.ticket && props.ticket.category_ids) {
+        console.log(props.ticket.category_ids.value);
+        selectedCategoryIds.value = props.ticket.category_ids.map(
+            (category: categoryType) => category.id,
+        );
+    }
 });
 </script>

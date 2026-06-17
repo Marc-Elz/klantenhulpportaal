@@ -3,6 +3,14 @@
         <h1>Please sign in</h1>
         <Form @submit="handleSubmit" />
     </div>
+
+    <router-link :to="{ name: 'auth.register' }">
+        Registreer je account
+    </router-link>
+    <br />
+    <router-link :to="{ name: 'auth.forgot-password' }">
+        Forgot Password
+    </router-link>
 </template>
 
 <script setup lang="ts">

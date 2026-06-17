@@ -1,7 +1,12 @@
 import axios from "axios";
 import { ref, computed } from "vue";
 import { getRequest, postRequest } from "../../services/http";
-import { authType, userType } from "../../services/store/storeTypes";
+import {
+    authType,
+    registerPayload,
+    resetPasswordPayload,
+    userType,
+} from "../../services/store/storeTypes";
 import { unMountTickets } from "../tickets/store";
 
 const authStore = () => {
@@ -39,6 +44,18 @@ const authStore = () => {
                 return null;
             }
         },
+        register: async (data: registerPayload) => {
+            const response = await postRequest("/register", data);
+            return response;
+        },
+        forgotPassword: async (data: authType) => {
+            const response = await postRequest("/forgot-password", data);
+            return response;
+        },
+        resetPassword: async (data: resetPasswordPayload) => {
+            const response = await postRequest("/reset-password", data);
+            return response;
+        },
     };
 
     return { getters, actions };
@@ -67,3 +84,23 @@ export const getCurrentUser = myAuthStore.getters.getCurrentUser;
 export const isAdmin = computed(
     () => getCurrentUser.value && getCurrentUser.value["role"] === "admin",
 );
+
+export const forgotPassword = async (data: string) => {
+    const authdata = {
+        email: data,
+        password: "",
+        id: 1,
+    };
+    const response = myAuthStore.actions.forgotPassword(authdata);
+    return response;
+};
+
+export const resetPassword = async (data: resetPasswordPayload) => {
+    const response = myAuthStore.actions.resetPassword(data);
+    return response;
+};
+
+export const register = async (data: registerPayload) => {
+    const response = myAuthStore.actions.register(data);
+    return response;
+};

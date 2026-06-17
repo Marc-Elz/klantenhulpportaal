@@ -14,8 +14,8 @@ export interface ticketType extends storeType {
     title: string;
     description: string;
     submitter_id: number;
-    user_asignee_id: number;
-    category_ids: number[];
+    user_asignee_id: number | null;
+    category_ids: number[] | categoryType[];
     status: Status;
     priority: Priority;
     created_at: Date;
@@ -26,9 +26,24 @@ export interface categoryType extends storeType {
     name: string;
 }
 
-export interface authType extends storeType {
+export interface authType {
     email: string;
     password: string;
+}
+
+export interface resetPasswordPayload {
+    email: string;
+    token: string;
+    password: string;
+    password_confirmation: string;
+}
+
+export interface registerPayload {
+    name: string;
+    email: string;
+    phone_number?: string;
+    password: string;
+    password_confirmation: string;
 }
 
 export interface commentType extends storeType {

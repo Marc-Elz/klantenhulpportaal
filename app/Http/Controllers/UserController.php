@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DestroyUserRequest;
 use App\Http\Resources\PartialUserResource;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\updateUserRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Models\Ticket;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\Log;
+use App\Notifications\Registration;
 
 class UserController extends Controller
 {
@@ -22,6 +24,23 @@ class UserController extends Controller
             $users = User::admins()->orWhere('id', $user->id)->get();
             return PartialUserResource::collection($users);
         }
+
+        $users = User::all();
+        return UserResource::collection($users);
+    }
+
+    public function store(StoreUserRequest $request)
+    {
+        $user = User::create($request->validated());
+
+        $user->notify(new Registration($user));
+
+        return response(["message" => 'Account was registered succesfully']);
+    }
+
+    public function update(updateUserRequest $request, User $user)
+    {
+        $user->update($request->validated());
 
         $users = User::all();
         return UserResource::collection($users);

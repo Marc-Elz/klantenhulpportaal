@@ -9,7 +9,6 @@ use App\Http\Resources\TicketResource;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 
-
 class TicketController extends Controller
 {
     public function index(Request $request)
@@ -46,6 +45,20 @@ class TicketController extends Controller
         }
 
         $validatedData = $request->validated();
+
+        // Guard status and asignee_id.
+        if(!$user->isAdmin()){
+            unset($validatedData["status"]);
+            unset($validatedData["user_asignee_id"]);
+        }
+
+        if (isset($validatedData['user_asignee_id'])){
+            $validatedData = $request->validate([
+                'user_asignee_id'=> 'nullable|integer|exists:users,id'
+            ]);
+        }
+
+
         $ticket->update($validatedData);
 
         if (isset($validatedData['category_ids'])) {
