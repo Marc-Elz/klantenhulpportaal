@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DestroyUserRequest;
-use App\Http\Resources\AdminResource;
+use App\Http\Resources\PartialUserResource;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -18,9 +18,9 @@ class UserController extends Controller
         $user = $request->user();
 
         if (!$user->isAdmin()) {
-            // Users do not need emailinfo or non user information
-            $users = User::admins()->get();
-            return AdminResource::collection($users);
+            // Users need only know the names, ids of admins or themselves. They do not need emailinfo or names of other regular users.
+            $users = User::admins()->orWhere('id', $user->id)->get();
+            return PartialUserResource::collection($users);
         }
 
         $users = User::all();
