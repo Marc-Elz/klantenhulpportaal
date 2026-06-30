@@ -1,7 +1,7 @@
 Feedbackpunten review
 
 Models / relaties
-- Comment model: gebruik belongsToMany i.p.v. belongsTo.
+- Comment model: Error hoort belongsTo te gebruiken ipv belongsToMany
 
 Auth
 - fetchSetUser is vreemd; na authenticate zou de user automatisch gefetcht moeten worden.
