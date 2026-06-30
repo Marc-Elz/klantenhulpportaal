@@ -12,6 +12,6 @@ class Note extends Model
 
     public function tickets()
     {
-        return $this->belongsToMany(Ticket::class);
+        return $this->belongsTo(Ticket::class);
     }
 }

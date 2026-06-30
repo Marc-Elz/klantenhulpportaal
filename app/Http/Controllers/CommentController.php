@@ -27,7 +27,8 @@ class CommentController extends Controller
 
         Comment::create($validatedData);
 
-        $this->updateTicketSubmitter($ticket);
+        $user = User::find($ticket['user_submitter_id']);
+        $user->notify(new AdminComment($user));
 
         $comments = $ticket->comments()->get();
 
@@ -42,10 +43,5 @@ class CommentController extends Controller
         $comments = $ticket->comments()->get();
 
         return CommentResource::collection($comments);
-    }
-
-    private function updateTicketSubmitter(Ticket $ticket){
-        $user = User::find($ticket['user_submitter_id']);
-        $user->notify(new AdminComment($user));
     }
 }

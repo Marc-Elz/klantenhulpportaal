@@ -1,0 +1,20 @@
+Feedbackpunten review
+
+Models / relaties
+- Comment model: gebruik belongsToMany i.p.v. belongsTo.
+
+Auth
+- fetchSetUser is vreemd; na authenticate zou de user automatisch gefetcht moeten worden.
+- Auth hoort in Laravel via policies, niet via isAdmin op de request zelf.
+
+Data / API
+- Category collection meegeven aan ticket is bloated; geef alleen ids mee en fetch de categorieën apart. Dit veroorzaakt ook die typescript errors
+
+Leesbaarheid
+- Witregels toevoegen in api.php tegen eyesore.
+- Geen onnodige functies voor iets dat in 2 regels kan; zorgt voor extra scrollwerk.
+- LoginController: gebruik een Request-class i.p.v. gekopieerde documentatie-code; pas het aan op de eigen projectstructuur.
+
+Structuur / domeinen
+- AuthStore is geen store maar een composable; hernoem.
+- CommentStore en NoteStore als aparte domeinen is overkill. Werkt functioneel, maar notes en comments horen bij tickets. Kan simpeler.
