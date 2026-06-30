@@ -24,10 +24,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/tickets', TicketController::class);
     Route::post('/tickets', [TicketController::class, 'store']);
     Route::put('/tickets/{ticket}', [TicketController::class, 'update']);
+
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::post('/categories', [CategoryController::class, 'store']);
     Route::put('/categories/{category}', [CategoryController::class, 'update']);
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
+
     Route::get('/tickets/{ticket}/comments/', [CommentController::class, 'index']);
     Route::post('/tickets/{ticket}/comments/', [CommentController::class, 'store']);
     Route::put('/tickets/{ticket}/comments/{comment}', [CommentController::class, 'update']);
@@ -35,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/tickets/{ticket}/notes/', [NoteController::class, 'store']);
     Route::put('/tickets/{ticket}/notes/{note}', [NoteController::class, 'update']);
     Route::delete('/tickets/{ticket}/notes/{note}', [NoteController::class, 'destroy']);
+    
     Route::get('/users', [UserController::class, 'index']);
     Route::put('/users/{user}', [UserController::class, 'update']);
     Route::delete('/users/{user}', [UserController::class, 'destroy']);

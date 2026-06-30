@@ -93,9 +93,6 @@ import ErrorMessage from "../../../components/ErrorMessage.vue";
 import { fetchUsers, getUserById } from "../../users/store.ts";
 import { getAllTickets, fetchTickets } from "../store";
 import { categoryType } from "../../../services/store/storeTypes.ts";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
 
 const getColor = (status: string) => {
     switch (status) {
