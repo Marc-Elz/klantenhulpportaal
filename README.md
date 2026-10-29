@@ -17,7 +17,7 @@ PHP 8.4 / Laravel 13, Laravel Sanctum, Vue 3, TypeScript, Vue Router, Tailwind C
 
 ## Getting started
 
-Requires PHP 8.4+, Composer and Node.js.
+Requires PHP 8.4+ (use the latest 8.4 or 8.5 patch release, which includes security fixes), Composer and Node.js.
 
 ```bash
 composer install
