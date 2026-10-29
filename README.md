@@ -13,11 +13,11 @@ Built at Script as a training project: I followed their courses to practise thei
 
 ## Tech stack
 
-PHP 8.3 / Laravel 13, Laravel Sanctum, Vue 3, TypeScript, Vue Router, Tailwind CSS 4, Vite, SQLite
+PHP 8.4 / Laravel 13, Laravel Sanctum, Vue 3, TypeScript, Vue Router, Tailwind CSS 4, Vite, SQLite
 
 ## Getting started
 
-Requires PHP 8.3+, Composer and Node.js.
+Requires PHP 8.4+, Composer and Node.js.
 
 ```bash
 composer install
